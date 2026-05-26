@@ -26,7 +26,6 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-
 import java.io.IOException;
 
 /**
@@ -37,8 +36,8 @@ import java.io.IOException;
  * @author Sasa Bolic
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnClass({net.spy.memcached.MemcachedClient.class, CacheManager.class})
-@ConditionalOnMissingClass({"net.rubyeye.xmemcached.MemcachedClient"})
+@ConditionalOnClass({ net.spy.memcached.MemcachedClient.class, CacheManager.class })
+@ConditionalOnMissingClass({ "net.rubyeye.xmemcached.MemcachedClient" })
 @Conditional(NotAppEngineProviderCondition.class)
 @EnableConfigurationProperties(MemcachedCacheProperties.class)
 public class SpyMemcachedCacheAutoConfiguration {
@@ -54,7 +53,7 @@ public class SpyMemcachedCacheAutoConfiguration {
         @RefreshScope
         @ConditionalOnMissingBean(value = MemcachedCacheManager.class, search = SearchStrategy.CURRENT)
         public MemcachedCacheManager cacheManager(MemcachedCacheProperties properties, ObjectProvider<SpyMemcachedConnectionFactoryCustomizer> customizers) throws IOException {
-            return new SpyMemcachedCacheManagerFactory(properties, customizers).create();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -65,7 +64,7 @@ public class SpyMemcachedCacheAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean(value = MemcachedCacheManager.class, search = SearchStrategy.CURRENT)
         public MemcachedCacheManager cacheManager(MemcachedCacheProperties properties, ObjectProvider<SpyMemcachedConnectionFactoryCustomizer> customizers) throws IOException {
-            return new SpyMemcachedCacheManagerFactory(properties, customizers).create();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }

@@ -21,7 +21,6 @@ import net.spy.memcached.MemcachedClient;
 import net.spy.memcached.auth.AuthDescriptor;
 import net.spy.memcached.auth.PlainCallbackHandler;
 import org.springframework.beans.factory.ObjectProvider;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -42,36 +41,11 @@ public class SpyMemcachedCacheManagerFactory extends MemcachedCacheManagerFactor
 
     @Override
     IMemcachedClient memcachedClient() throws IOException {
-        final List<InetSocketAddress> servers = properties.getServers();
-        final MemcachedCacheProperties.Provider provider = properties.getProvider();
-        final MemcachedCacheProperties.Protocol protocol = properties.getProtocol();
-        final MemcachedCacheProperties.HashStrategy hashStrategy = properties.getHashStrategy();
-        final MemcachedCacheProperties.Authentication authentication = properties.getAuthentication();
-
-        final ConnectionFactoryBuilder connectionFactoryBuilder = new ConnectionFactoryBuilder()
-                .setLocatorType(hashStrategyToLocator(hashStrategy))
-                .setClientMode(clientMode(provider))
-                .setOpTimeout(properties.getOperationTimeout().toMillis())
-                .setProtocol(connectionProtocol(protocol));
-
-        if (!authentication.isEmpty()) {
-            connectionFactoryBuilder.setAuthDescriptor(
-                    new AuthDescriptor(
-                            new String[]{authentication.getMechanism().asString()},
-                            new PlainCallbackHandler(
-                                    authentication.getUsername(),
-                                    authentication.getPassword())
-                    )
-            );
-        }
-
-        customizers.orderedStream().forEach(customizer -> customizer.customize(connectionFactoryBuilder));
-
-        return new SpyMemcachedClient(new MemcachedClient(connectionFactoryBuilder.build(), servers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private ClientMode clientMode(MemcachedCacheProperties.Provider provider) {
-        switch (provider) {
+        switch(provider) {
             case STATIC:
                 return ClientMode.Static;
             case AWS:
@@ -82,7 +56,7 @@ public class SpyMemcachedCacheManagerFactory extends MemcachedCacheManagerFactor
     }
 
     private ConnectionFactoryBuilder.Protocol connectionProtocol(MemcachedCacheProperties.Protocol protocol) {
-        switch (protocol) {
+        switch(protocol) {
             case TEXT:
                 return ConnectionFactoryBuilder.Protocol.TEXT;
             case BINARY:
@@ -93,7 +67,7 @@ public class SpyMemcachedCacheManagerFactory extends MemcachedCacheManagerFactor
     }
 
     private ConnectionFactoryBuilder.Locator hashStrategyToLocator(MemcachedCacheProperties.HashStrategy hashStrategy) {
-        switch (hashStrategy) {
+        switch(hashStrategy) {
             case STANDARD:
                 return ConnectionFactoryBuilder.Locator.ARRAY_MOD;
             case KETAMA:

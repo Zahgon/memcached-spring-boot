@@ -18,7 +18,6 @@ package io.sixhours.memcached.cache;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.boot.convert.DurationUnit;
-
 import java.net.InetSocketAddress;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -110,7 +109,7 @@ public class MemcachedCacheProperties {
     private HashStrategy hashStrategy = Default.HASH_STRATEGY;
 
     public List<InetSocketAddress> getServers() {
-        return servers;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -119,107 +118,87 @@ public class MemcachedCacheProperties {
      * @param value Comma-separated list
      */
     public void setServers(String value) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Server list is empty");
-        }
-        this.servers = Arrays.stream(value.split(","))
-                .map(String::trim)
-                .map(SocketAddress::new)
-                .map(SocketAddress::value)
-                .toList();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Authentication getAuthentication() {
-        return authentication;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setAuthentication(Authentication authentication) {
-        this.authentication = authentication;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Set<String> getDisabledCacheNames() {
-        return disabledCacheNames;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setDisabledCacheNames(Set<String> disabledCacheNames) {
-        this.disabledCacheNames = disabledCacheNames;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public List<String> getMetricsCacheNames() {
-        return metricsCacheNames;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setMetricsCacheNames(List<String> metricsCacheNames) {
-        this.metricsCacheNames = metricsCacheNames;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Provider getProvider() {
-        return provider;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setProvider(Provider provider) {
-        this.provider = provider;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Duration getExpiration() {
-        return expiration;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setExpiration(Duration expiration) {
-        validateExpiration(expiration);
-        this.expiration = expiration;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setExpirationPerCache(Map<String, String> expirationPerCache) {
-        if (expirationPerCache != null) {
-            expirationPerCache.forEach((cacheName, cacheExpiration) -> {
-                Duration exp = DurationStyle.detect(cacheExpiration).parse(cacheExpiration, ChronoUnit.SECONDS);
-                validateExpiration(exp);
-                this.expirationPerCache.put(cacheName, exp);
-            });
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Map<String, Duration> getExpirationPerCache() {
-        return expirationPerCache;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public String getPrefix() {
-        return prefix;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setPrefix(String prefix) {
-        this.prefix = prefix;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Protocol getProtocol() {
-        return protocol;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setProtocol(Protocol protocol) {
-        this.protocol = protocol;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Duration getOperationTimeout() {
-        return operationTimeout;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setOperationTimeout(Duration operationTimeout) {
-        if (operationTimeout == null || Duration.ZERO.compareTo(operationTimeout) >= 0) {
-            throw new IllegalArgumentException("Operation timeout must be greater then zero");
-        }
-        this.operationTimeout = operationTimeout;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Duration getServersRefreshInterval() {
-        return serversRefreshInterval;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setServersRefreshInterval(Duration serversRefreshInterval) {
-        if (serversRefreshInterval == null || Duration.ZERO.compareTo(serversRefreshInterval) >= 0) {
-            throw new IllegalArgumentException("Servers refresh interval must be greater then zero");
-        }
-        this.serversRefreshInterval = serversRefreshInterval;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private void validateExpiration(Duration expiration) {
@@ -229,11 +208,11 @@ public class MemcachedCacheProperties {
     }
 
     public HashStrategy getHashStrategy() {
-        return hashStrategy;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setHashStrategy(HashStrategy hashStrategy) {
-        this.hashStrategy = hashStrategy;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static class Authentication {
@@ -254,37 +233,38 @@ public class MemcachedCacheProperties {
         private Mechanism mechanism;
 
         public String getUsername() {
-            return username;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public void setUsername(String username) {
-            this.username = username;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public String getPassword() {
-            return password;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public void setPassword(String password) {
-            this.password = password;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Mechanism getMechanism() {
-            return mechanism != null ? mechanism : Default.AUTHENTICATION_MECHANISM;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public void setMechanism(Mechanism mechanism) {
-            this.mechanism = mechanism;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public boolean isEmpty() {
-            return username == null || password == null;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Supported authentication mechanisms.
          */
         public enum Mechanism {
+
             PLAIN("PLAIN"), CRAM_MD5("CRAM-MD5");
 
             private final String value;
@@ -294,20 +274,29 @@ public class MemcachedCacheProperties {
             }
 
             public String asString() {
-                return value;
+                throw new UnsupportedOperationException("STUB: not implemented");
             }
         }
     }
 
     public enum Protocol {
+
         TEXT, BINARY
     }
 
     public enum Provider {
+
         STATIC, APPENGINE, AWS
     }
 
     public enum HashStrategy {
-        STANDARD, LIBMEMCACHED, KETAMA, PHP, ELECTION, ROUNDROBIN, RANDOM
+
+        STANDARD,
+        LIBMEMCACHED,
+        KETAMA,
+        PHP,
+        ELECTION,
+        ROUNDROBIN,
+        RANDOM
     }
 }

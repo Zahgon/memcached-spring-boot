@@ -33,6 +33,6 @@ public class MemcachedCacheMeterBinderProviderConfiguration {
 
     @Bean
     public MemcachedCacheMeterBinderProvider memcachedCacheMeterBinderProvider() {
-        return new MemcachedCacheMeterBinderProvider();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

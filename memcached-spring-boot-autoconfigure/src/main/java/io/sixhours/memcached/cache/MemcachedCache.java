@@ -16,7 +16,6 @@
 package io.sixhours.memcached.cache;
 
 import org.springframework.cache.support.AbstractValueAdaptingCache;
-
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
@@ -35,13 +34,17 @@ public class MemcachedCache extends AbstractValueAdaptingCache {
     private static final String KEY_DELIMITER = ":";
 
     private final IMemcachedClient memcachedClient;
+
     private final MemcacheCacheMetadata memcacheCacheMetadata;
 
     private final Lock lock = new ReentrantLock();
 
     private final AtomicLong hits = new AtomicLong();
+
     private final AtomicLong misses = new AtomicLong();
+
     private final AtomicLong puts = new AtomicLong();
+
     private final AtomicLong evictions = new AtomicLong();
 
     /**
@@ -77,38 +80,23 @@ public class MemcachedCache extends AbstractValueAdaptingCache {
 
     @Override
     protected Object lookup(Object key) {
-        return trackHitsMisses(memcachedClient.get(memcachedKey(key)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String getName() {
-        return this.memcacheCacheMetadata.name();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Object getNativeCache() {
-        return this.memcachedClient;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public <T> T get(Object key, Callable<T> valueLoader) {
-        Object value = lookup(key);
-        if (value != null) {
-            return (T) fromStoreValue(value);
-        }
-
-        lock.lock();
-        try {
-            value = lookup(key);
-            if (value != null) {
-                return (T) fromStoreValue(value);
-            } else {
-                return (T) fromStoreValue(loadValue(key, valueLoader));
-            }
-        } finally {
-            lock.unlock();
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private <T> T loadValue(Object key, Callable<T> valueLoader) {
@@ -124,47 +112,38 @@ public class MemcachedCache extends AbstractValueAdaptingCache {
 
     @Override
     public void put(Object key, Object value) {
-        this.memcachedClient.set(memcachedKey(key), this.memcacheCacheMetadata.expiration(), toStoreValue(value));
-        this.memcachedClient.touch(this.memcacheCacheMetadata.namespaceKey(), this.memcacheCacheMetadata.expiration());
-        puts.incrementAndGet();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public ValueWrapper putIfAbsent(Object key, Object value) {
-        Object existingValue = lookup(key);
-        if (existingValue == null) {
-            put(key, value);
-            return toValueWrapper(value);
-        }
-
-        return toValueWrapper(existingValue);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void evict(Object key) {
-        this.memcachedClient.delete(memcachedKey(key));
-        this.evictions.incrementAndGet();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void clear() {
-        this.memcachedClient.incr(this.memcacheCacheMetadata.namespaceKey(), 1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public long hits() {
-        return hits.get();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public long misses() {
-        return misses.get();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public long puts() {
-        return puts.get();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public long evictions() {
-        return evictions.get();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -192,10 +171,7 @@ public class MemcachedCache extends AbstractValueAdaptingCache {
      * @return Memcached key
      */
     private String memcachedKey(Object key) {
-        return memcacheCacheMetadata.keyPrefix() +
-                namespaceValue() +
-                KEY_DELIMITER +
-                String.valueOf(key).replaceAll("\\s", "");
+        return memcacheCacheMetadata.keyPrefix() + namespaceValue() + KEY_DELIMITER + String.valueOf(key).replaceAll("\\s", "");
     }
 
     /**
@@ -208,36 +184,34 @@ public class MemcachedCache extends AbstractValueAdaptingCache {
         String value = (String) this.memcachedClient.get(this.memcacheCacheMetadata.namespaceKey());
         if (value == null) {
             value = String.valueOf(System.currentTimeMillis());
-            this.memcachedClient.set(this.memcacheCacheMetadata.namespaceKey(),
-                    this.memcacheCacheMetadata.expiration(), value);
+            this.memcachedClient.set(this.memcacheCacheMetadata.namespaceKey(), this.memcacheCacheMetadata.expiration(), value);
         }
-
         return value;
     }
 
     static class MemcacheCacheMetadata {
+
         private final String name;
+
         private final int expiration;
+
         private final String keyPrefix;
+
         private final String namespaceKey;
+
         private final Clock clock;
 
         public MemcacheCacheMetadata(String name, int expiration, String cachePrefix, String namespace, Clock clock) {
             this.name = name;
             this.expiration = expiration;
-
-            StringBuilder sb = new StringBuilder(cachePrefix)
-                    .append(KEY_DELIMITER)
-                    .append(name)
-                    .append(KEY_DELIMITER);
-
+            StringBuilder sb = new StringBuilder(cachePrefix).append(KEY_DELIMITER).append(name).append(KEY_DELIMITER);
             this.keyPrefix = sb.toString();
             this.namespaceKey = sb.append(namespace).toString();
             this.clock = clock;
         }
 
         public String name() {
-            return name;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -254,19 +228,15 @@ public class MemcachedCache extends AbstractValueAdaptingCache {
          * @see <a href="https://www.unixtimestamp.com/">Unix timestamp</a>
          */
         public int expiration() {
-            // If the expiration is greater than 30 days: expiration time = UNIX timestamp + expiration
-            if (this.expiration > Duration.ofDays(30).getSeconds()) {
-                return (int) Instant.now(clock).plusSeconds(expiration).getEpochSecond();
-            }
-            return expiration;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public String keyPrefix() {
-            return keyPrefix;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public String namespaceKey() {
-            return namespaceKey;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }

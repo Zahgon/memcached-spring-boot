@@ -19,7 +19,6 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.support.NoOpCache;
 import org.springframework.cache.transaction.AbstractTransactionSupportingCacheManager;
-
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,11 +53,17 @@ public class MemcachedCacheManager extends AbstractTransactionSupportingCacheMan
     final IMemcachedClient memcachedClient;
 
     private int expiration = Default.EXPIRATION;
+
     private String prefix = Default.PREFIX;
+
     private String namespace = Default.NAMESPACE;
+
     private Map<String, Integer> expirationPerCache;
+
     private List<String> metricsCacheNames = Collections.emptyList();
+
     private Set<String> disabledCacheNames = new HashSet<>();
+
     private Clock clock = Clock.systemUTC();
 
     /**
@@ -72,28 +77,17 @@ public class MemcachedCacheManager extends AbstractTransactionSupportingCacheMan
 
     @Override
     protected Collection<? extends Cache> loadCaches() {
-        List<MemcachedCache> caches = new ArrayList<>();
-
-        for (String metricsCacheName : metricsCacheNames) {
-            caches.add(createCache(metricsCacheName));
-        }
-
-        return caches;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Cache getCache(String name) {
-        if (disabledCacheNames.contains(name)) {
-            log.warning(() -> String.format("Ignoring cache '%s' because it is on the disabled cache names.", name));
-            return new NoOpCache(name);
-        }
-
-        return super.getCache(name);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected MemcachedCache getMissingCache(String name) {
-        return createCache(name);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private MemcachedCache createCache(String name) {
@@ -102,8 +96,7 @@ public class MemcachedCacheManager extends AbstractTransactionSupportingCacheMan
     }
 
     private int determineExpiration(String name) {
-        return Optional.ofNullable(expirationPerCache).map(e -> e.get(name))
-                .orElse(this.expiration);
+        return Optional.ofNullable(expirationPerCache).map(e -> e.get(name)).orElse(this.expiration);
     }
 
     /**
@@ -113,15 +106,15 @@ public class MemcachedCacheManager extends AbstractTransactionSupportingCacheMan
      * @param expiration the expiration
      */
     public void setExpiration(int expiration) {
-        this.expiration = expiration;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setPrefix(String prefix) {
-        this.prefix = prefix;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setNamespace(String namespace) {
-        this.namespace = namespace;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -130,7 +123,7 @@ public class MemcachedCacheManager extends AbstractTransactionSupportingCacheMan
      * @param expirationPerCache {@link Map} of expiration times per cache key
      */
     public void setExpirationPerCache(Map<String, Integer> expirationPerCache) {
-        this.expirationPerCache = (expirationPerCache != null ? new ConcurrentHashMap<>(expirationPerCache) : null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -139,21 +132,19 @@ public class MemcachedCacheManager extends AbstractTransactionSupportingCacheMan
      * @param metricsCacheNames the metrics cache names
      */
     public void setMetricsCacheNames(List<String> metricsCacheNames) {
-        if (metricsCacheNames != null) {
-            this.metricsCacheNames = metricsCacheNames;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public IMemcachedClient client() {
-        return this.memcachedClient;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setDisabledCacheNames(Set<String> disabledCacheNames) {
-        this.disabledCacheNames = disabledCacheNames;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Set<String> getDisabledCacheNames() {
-        return disabledCacheNames;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -163,6 +154,6 @@ public class MemcachedCacheManager extends AbstractTransactionSupportingCacheMan
      * @param clock The fixed clock instance
      */
     public void setClock(Clock clock) {
-        this.clock = clock;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

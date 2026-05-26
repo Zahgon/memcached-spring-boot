@@ -26,6 +26,6 @@ public class MemcachedCacheMeterBinderProvider implements CacheMeterBinderProvid
 
     @Override
     public MeterBinder getMeterBinder(MemcachedCache memcachedCache, Iterable<Tag> tags) {
-        return new MemcachedCacheMetrics(memcachedCache, memcachedCache.getName(), tags);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

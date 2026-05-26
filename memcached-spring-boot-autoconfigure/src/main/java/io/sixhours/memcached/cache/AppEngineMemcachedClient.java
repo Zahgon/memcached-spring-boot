@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Igor Bolic
  */
 public class AppEngineMemcachedClient implements IMemcachedClient {
+
     private static final Log log = LogFactory.getLog(AppEngineMemcachedClient.class);
 
     private final MemcacheService service;
@@ -37,42 +38,41 @@ public class AppEngineMemcachedClient implements IMemcachedClient {
 
     @Override
     public MemcacheService nativeClient() {
-        return this.service;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Object get(String key) {
-        return this.service.get(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void set(String key, int exp, Object value) {
-        this.service.put(key, value, Expiration.byDeltaSeconds(exp));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void touch(String key, int exp) {
-        final MemcacheService.IdentifiableValue identifiable = this.service.getIdentifiable(key);
-        this.service.putIfUntouched(key, identifiable, identifiable.getValue(), Expiration.byDeltaSeconds(exp));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void delete(String key) {
-        this.service.delete(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void flush() {
-        this.service.clearAll();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public long incr(String key, int by) {
-        return this.service.increment(key, by);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void shutdown() {
-        // do nothing
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

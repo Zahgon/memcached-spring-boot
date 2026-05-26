@@ -30,6 +30,6 @@ public class AppEngineMemcachedCacheManagerFactory extends MemcachedCacheManager
 
     @Override
     IMemcachedClient memcachedClient() {
-        return new AppEngineMemcachedClient(MemcacheServiceFactory.getMemcacheService());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

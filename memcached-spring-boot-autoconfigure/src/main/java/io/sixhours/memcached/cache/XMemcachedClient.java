@@ -19,7 +19,6 @@ import net.rubyeye.xmemcached.MemcachedClient;
 import net.rubyeye.xmemcached.exception.MemcachedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
@@ -29,6 +28,7 @@ import java.util.concurrent.TimeoutException;
  * @author Igor Bolic
  */
 public class XMemcachedClient implements IMemcachedClient {
+
     private static final Log log = LogFactory.getLog(XMemcachedClient.class);
 
     private final MemcachedClient memcachedClient;
@@ -40,87 +40,41 @@ public class XMemcachedClient implements IMemcachedClient {
 
     @Override
     public MemcachedClient nativeClient() {
-        return this.memcachedClient;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Object get(String key) {
-        try {
-            return this.memcachedClient.get(key);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new MemcachedOperationException("Failed to get key", e);
-        } catch (TimeoutException | MemcachedException e) {
-            throw new MemcachedOperationException("Failed to get key", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void set(String key, int exp, Object value) {
-        try {
-            this.memcachedClient.set(key, exp, value);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new MemcachedOperationException("Failed to set key", e);
-        } catch (TimeoutException | MemcachedException e) {
-            throw new MemcachedOperationException("Failed to set key", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void touch(String key, int exp) {
-        try {
-            this.memcachedClient.touch(key, exp);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new MemcachedOperationException("Failed to touch key", e);
-        } catch (TimeoutException | MemcachedException e) {
-            throw new MemcachedOperationException("Failed to touch key", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void delete(String key) {
-        try {
-            this.memcachedClient.delete(key);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new MemcachedOperationException("Failed to delete key", e);
-        } catch (TimeoutException | MemcachedException e) {
-            throw new MemcachedOperationException("Failed to delete key", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void flush() {
-        try {
-            this.memcachedClient.flushAll();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new MemcachedOperationException("Failed to flush all keys", e);
-        } catch (TimeoutException | MemcachedException e) {
-            throw new MemcachedOperationException("Failed to flush all keys", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public long incr(String key, int by) {
-        try {
-            return this.memcachedClient.incr(key, by);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new MemcachedOperationException("Failed to increment key", e);
-        } catch (TimeoutException | MemcachedException e) {
-            throw new MemcachedOperationException("Failed to increment key", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void shutdown() {
-        try {
-            this.memcachedClient.shutdown();
-        } catch (IOException e) {
-            throw new MemcachedOperationException("Failed to shutdown client", e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

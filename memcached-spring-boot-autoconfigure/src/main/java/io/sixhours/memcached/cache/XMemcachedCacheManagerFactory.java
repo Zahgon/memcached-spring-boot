@@ -32,7 +32,6 @@ import net.rubyeye.xmemcached.impl.PHPMemcacheSessionLocator;
 import net.rubyeye.xmemcached.impl.RandomMemcachedSessionLocaltor;
 import net.rubyeye.xmemcached.impl.RoundRobinMemcachedSessionLocator;
 import org.springframework.beans.factory.ObjectProvider;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -57,60 +56,33 @@ public class XMemcachedCacheManagerFactory extends MemcachedCacheManagerFactory 
 
     @Override
     IMemcachedClient memcachedClient() throws IOException {
-        final List<InetSocketAddress> servers = properties.getServers();
-        final MemcachedCacheProperties.Provider provider = properties.getProvider();
-        final MemcachedCacheProperties.Protocol protocol = properties.getProtocol();
-        final MemcachedCacheProperties.HashStrategy hashStrategy = properties.getHashStrategy();
-        final MemcachedCacheProperties.Authentication authentication = properties.getAuthentication();
-
-        final MemcachedClientBuilder builder = builder(provider, servers);
-
-        if (builder instanceof AutoDiscoveryCacheClientBuilder autoDiscoveryCacheClientBuilder) {
-            autoDiscoveryCacheClientBuilder.setPollConfigIntervalMs(properties.getServersRefreshInterval().toMillis());
-        }
-
-        if (!authentication.isEmpty()) {
-            Map<InetSocketAddress, AuthInfo> authInfoMap = servers.stream()
-                    .collect(Collectors.toMap(
-                            Function.identity(),
-                            i -> new AuthInfo(new PlainCallbackHandler(
-                                    authentication.getUsername(),
-                                    authentication.getPassword()),
-                                    new String[]{authentication.getMechanism().asString()}
-                            )
-                    ));
-
-            builder.setAuthInfoMap(authInfoMap);
-        }
-
-        builder.setSessionLocator(hashStrategyToLocator(hashStrategy));
-        builder.setOpTimeout(properties.getOperationTimeout().toMillis());
-        builder.setCommandFactory(commandFactory(protocol));
-
-        customizers.orderedStream().forEach(customizer -> customizer.customize(builder));
-
-        return new XMemcachedClient(builder.build());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private MemcachedClientBuilder builder(MemcachedCacheProperties.Provider provider, List<InetSocketAddress> servers) {
-        return switch (provider) {
-            case STATIC -> new XMemcachedClientBuilder(servers);
-            case AWS -> new AutoDiscoveryCacheClientBuilder(servers);
+        return switch(provider) {
+            case STATIC ->
+                new XMemcachedClientBuilder(servers);
+            case AWS ->
+                new AutoDiscoveryCacheClientBuilder(servers);
             default ->
-                    throw new IllegalArgumentException(String.format("Invalid provider=%s for the XMemcached configuration", provider));
+                throw new IllegalArgumentException(String.format("Invalid provider=%s for the XMemcached configuration", provider));
         };
     }
 
     private CommandFactory commandFactory(MemcachedCacheProperties.Protocol protocol) {
-        return switch (protocol) {
-            case TEXT -> new TextCommandFactory();
-            case BINARY -> new BinaryCommandFactory();
-            default -> throw new IllegalArgumentException("Invalid protocol for the XMemcached configuration");
+        return switch(protocol) {
+            case TEXT ->
+                new TextCommandFactory();
+            case BINARY ->
+                new BinaryCommandFactory();
+            default ->
+                throw new IllegalArgumentException("Invalid protocol for the XMemcached configuration");
         };
     }
 
     private MemcachedSessionLocator hashStrategyToLocator(MemcachedCacheProperties.HashStrategy hashStrategy) {
-        switch (hashStrategy) {
+        switch(hashStrategy) {
             case STANDARD:
                 return new ArrayMemcachedSessionLocator();
             case LIBMEMCACHED:

@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Sasa Bolic
  */
 public class SpyMemcachedClient implements IMemcachedClient {
+
     private static final Log log = LogFactory.getLog(SpyMemcachedClient.class);
 
     private final MemcachedClient memcachedClient;
@@ -36,41 +37,41 @@ public class SpyMemcachedClient implements IMemcachedClient {
 
     @Override
     public MemcachedClient nativeClient() {
-        return this.memcachedClient;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public Object get(String key) {
-        return this.memcachedClient.get(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void set(String key, int exp, Object value) {
-        this.memcachedClient.set(key, exp, value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void touch(String key, int exp) {
-        this.memcachedClient.touch(key, exp);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void delete(String key) {
-        this.memcachedClient.delete(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void flush() {
-        this.memcachedClient.flush();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public long incr(String key, int by) {
-        return this.memcachedClient.incr(key, by);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void shutdown() {
-        this.memcachedClient.shutdown();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

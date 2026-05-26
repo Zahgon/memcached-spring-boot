@@ -34,17 +34,7 @@ public abstract class MemcachedCacheManagerFactory {
     }
 
     public MemcachedCacheManager create() throws IOException {
-        final DisposableMemcachedCacheManager cacheManager = new DisposableMemcachedCacheManager(memcachedClient());
-
-        cacheManager.setExpiration((int) properties.getExpiration().getSeconds());
-        cacheManager.setExpirationPerCache(properties.getExpirationPerCache().entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> (int) e.getValue().getSeconds())));
-        cacheManager.setDisabledCacheNames(properties.getDisabledCacheNames());
-        cacheManager.setMetricsCacheNames(properties.getMetricsCacheNames());
-        cacheManager.setPrefix(properties.getPrefix());
-        cacheManager.setNamespace(Default.NAMESPACE);
-
-        return cacheManager;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     abstract IMemcachedClient memcachedClient() throws IOException;

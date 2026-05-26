@@ -30,6 +30,6 @@ class DisposableMemcachedCacheManager extends MemcachedCacheManager implements D
 
     @Override
     public void destroy() {
-        this.memcachedClient.shutdown();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

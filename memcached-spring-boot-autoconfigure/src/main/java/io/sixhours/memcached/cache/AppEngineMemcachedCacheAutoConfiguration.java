@@ -27,7 +27,6 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-
 import java.io.IOException;
 
 /**
@@ -38,7 +37,7 @@ import java.io.IOException;
  * @author Sasa Bolic
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnClass({com.google.appengine.api.memcache.BaseMemcacheService.class, CacheManager.class})
+@ConditionalOnClass({ com.google.appengine.api.memcache.BaseMemcacheService.class, CacheManager.class })
 @Conditional(AppEngineProviderCondition.class)
 @EnableConfigurationProperties(MemcachedCacheProperties.class)
 @AutoConfigureAfter(name = "org.springframework.cloud.autoconfigure.RefreshAutoConfiguration")
@@ -55,7 +54,7 @@ public class AppEngineMemcachedCacheAutoConfiguration {
         @RefreshScope
         @ConditionalOnMissingBean(value = MemcachedCacheManager.class, search = SearchStrategy.CURRENT)
         public MemcachedCacheManager cacheManager(MemcachedCacheProperties properties) throws IOException {
-            return new AppEngineMemcachedCacheManagerFactory(properties).create();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -66,7 +65,7 @@ public class AppEngineMemcachedCacheAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean(value = MemcachedCacheManager.class, search = SearchStrategy.CURRENT)
         public MemcachedCacheManager cacheManager(MemcachedCacheProperties properties) throws IOException {
-            return new AppEngineMemcachedCacheManagerFactory(properties).create();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }

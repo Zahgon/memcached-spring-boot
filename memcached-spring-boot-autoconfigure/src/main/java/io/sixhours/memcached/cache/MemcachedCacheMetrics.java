@@ -26,6 +26,7 @@ import io.micrometer.core.instrument.binder.cache.CaffeineCacheMetrics;
  * @author Mat Mannion
  */
 public class MemcachedCacheMetrics extends CacheMeterBinder<MemcachedCache> {
+
     private final MemcachedCache cache;
 
     /**
@@ -42,34 +43,31 @@ public class MemcachedCacheMetrics extends CacheMeterBinder<MemcachedCache> {
 
     @Override
     protected Long size() {
-        // MemcachedCache doesn't support size
-        return null;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected long hitCount() {
-        return cache.hits();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected Long missCount() {
-        return cache.misses();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected Long evictionCount() {
-        return cache.evictions();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected long putCount() {
-        return cache.puts();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected void bindImplementationSpecificMetrics(MeterRegistry registry) {
-        if (cache.getNativeCache() instanceof XMemcachedClient memcachedClient) {
-            registry.gauge("available_servers_count", memcachedClient.nativeClient().getAvailableServers().size());
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }
